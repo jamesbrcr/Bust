@@ -1,8 +1,14 @@
 import type { Metadata } from 'next'
 import { Geist } from 'next/font/google'
+import localFont from 'next/font/local'
 import './globals.css'
 
 const geist = Geist({ subsets: ['latin'] })
+
+const superPopstar = localFont({
+  src: '../fonts/Super Popstar.ttf',
+  variable: '--font-brand',
+})
 
 export const metadata: Metadata = {
   title: 'Bust — My Recipe Book',
@@ -11,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="h-full" suppressHydrationWarning>
+    <html lang="en" className={`h-full ${superPopstar.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: `
           try {
