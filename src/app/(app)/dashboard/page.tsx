@@ -16,8 +16,8 @@ export default async function DashboardPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">My Recipes</h1>
-          <p className="text-sm text-gray-500 mt-0.5">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">My Recipes</h1>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
             {recipes.length} recipe{recipes.length !== 1 ? 's' : ''} saved
           </p>
         </div>

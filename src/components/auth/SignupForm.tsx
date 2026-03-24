@@ -71,16 +71,16 @@ export default function SignupForm() {
       </div>
 
       {error && (
-        <p className="text-sm text-red-500 bg-red-50 px-3 py-2 rounded-lg">{error}</p>
+        <p className="text-sm text-red-500 bg-red-50 dark:bg-red-900/20 px-3 py-2 rounded-lg">{error}</p>
       )}
 
       <Button type="submit" className="w-full" loading={loading}>
         Create account
       </Button>
 
-      <p className="text-center text-sm text-gray-600">
+      <p className="text-center text-sm text-gray-600 dark:text-gray-400">
         Already have an account?{' '}
-        <Link href="/login" className="text-orange-500 hover:underline font-medium">
+        <Link href="/login" className="text-brand-500 hover:underline font-medium">
           Sign in
         </Link>
       </p>

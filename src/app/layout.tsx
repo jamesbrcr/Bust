@@ -11,8 +11,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="h-full">
-      <body className={`${geist.className} min-h-full bg-gray-50 text-gray-900 antialiased`}>
+    <html lang="en" className="h-full" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `
+          try {
+            var stored = localStorage.getItem('theme');
+            var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (stored === 'dark' || (!stored && prefersDark)) {
+              document.documentElement.classList.add('dark');
+            }
+          } catch(e) {}
+        ` }} />
+      </head>
+      <body className={`${geist.className} min-h-full bg-brand-100 dark:bg-dark-base text-gray-900 dark:text-gray-50 antialiased`}>
         {children}
       </body>
     </html>

@@ -38,7 +38,7 @@ export default function StarRating({ value, onChange, readonly, size = 'md' }: S
         </button>
       ))}
       {value !== null && value !== undefined && (
-        <span className="ml-2 text-sm font-medium text-gray-600">{value}/10</span>
+        <span className="ml-2 text-sm font-medium text-gray-600 dark:text-gray-400">{value}/10</span>
       )}
     </div>
   )

@@ -52,7 +52,7 @@ export default function IngredientList({ initialIngredients }: IngredientListPro
             type="button"
             onClick={() => remove(i)}
             disabled={ingredients.length === 1}
-            className="shrink-0 p-1.5 text-gray-400 hover:text-red-500 disabled:opacity-30 transition-colors"
+            className="shrink-0 p-1.5 text-gray-400 hover:text-red-500 dark:hover:text-red-400 disabled:opacity-30 transition-colors"
             aria-label="Remove ingredient"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">

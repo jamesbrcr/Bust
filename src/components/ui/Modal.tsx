@@ -34,10 +34,10 @@ export default function Modal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/40" onClick={onCancel} />
-      <div className="relative bg-white rounded-xl shadow-xl max-w-sm w-full p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-2">{title}</h2>
-        <p className="text-sm text-gray-600 mb-6">{description}</p>
+      <div className="absolute inset-0 bg-black/50" onClick={onCancel} />
+      <div className="relative bg-white dark:bg-dark-base rounded-xl shadow-xl border border-transparent dark:border-dark-surface max-w-sm w-full p-6">
+        <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">{title}</h2>
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">{description}</p>
         <div className="flex gap-3 justify-end">
           <Button variant="secondary" onClick={onCancel} disabled={loading}>
             Cancel

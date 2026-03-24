@@ -65,7 +65,7 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
       <div>
         <Label>Rating</Label>
         <StarRating value={rating} onChange={setRating} />
-        <p className="text-xs text-gray-400 mt-1">Click a star to rate 1–10</p>
+        <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Click a star to rate 1–10</p>
       </div>
 
       <div>
@@ -85,7 +85,7 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
       </div>
 
       {error && (
-        <p className="text-sm text-red-500 bg-red-50 px-3 py-2 rounded-lg">{error}</p>
+        <p className="text-sm text-red-500 bg-red-50 dark:bg-red-900/20 px-3 py-2 rounded-lg">{error}</p>
       )}
 
       <div className="flex gap-3 pt-2">
