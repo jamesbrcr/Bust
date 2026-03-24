@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
-import { Geist } from 'next/font/google'
 import localFont from 'next/font/local'
 import './globals.css'
 
-const geist = Geist({ subsets: ['latin'] })
+const caviarDreams = localFont({
+  src: '../fonts/CaviarDreams_Bold.ttf',
+})
 
 const superPopstar = localFont({
   src: '../fonts/Super Popstar.ttf',
@@ -29,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           } catch(e) {}
         ` }} />
       </head>
-      <body className={`${geist.className} min-h-full bg-brand-100 dark:bg-dark-base text-gray-900 dark:text-gray-50 antialiased`}>
+      <body className={`${caviarDreams.className} min-h-full bg-brand-100 dark:bg-dark-base text-[30px] text-gray-900 dark:text-gray-50 antialiased`}>
         {children}
       </body>
     </html>
