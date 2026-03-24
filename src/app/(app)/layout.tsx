@@ -6,7 +6,7 @@ import ThemeToggle from '@/components/ui/ThemeToggle'
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen flex flex-col">
-      <header className="bg-white dark:bg-dark-base border-b border-gray-100 dark:border-dark-surface sticky top-0 z-10">
+      <header className="bg-[#FFAA6E] dark:bg-[#FFAA6E] border-b border-[#FF8237] dark:border-[#FF8237] sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center relative">
           <Link href="/dashboard" className="absolute left-1/2 -translate-x-1/2 text-gray-900 dark:text-gray-100 hover:text-brand-500 dark:hover:text-brand-400 transition-colors leading-none" style={{ fontFamily: 'var(--font-brand)', fontSize: '70px' }}>
             Bust
