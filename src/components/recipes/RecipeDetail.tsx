@@ -38,7 +38,7 @@ export default function RecipeDetail({ recipe }: { recipe: RecipeWithIngredients
 
       {recipe.rating !== null && (
         <div className="mb-4">
-          <StarRating value={recipe.rating} readonly size="md" />
+          <StarRating value={recipe.rating} size="md" />
         </div>
       )}
 

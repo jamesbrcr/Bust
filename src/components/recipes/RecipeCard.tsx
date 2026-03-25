@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { RecipeWithIngredients } from '@/types'
 import { formatDate } from '@/lib/utils'
 import DeleteRecipeButton from './DeleteRecipeButton'
+import StarRating from './StarRating'
 
 interface RecipeCardProps {
   recipe: RecipeWithIngredients
@@ -38,10 +39,8 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
         </div>
 
         {recipe.rating !== null && (
-          <div className="flex items-center gap-1 mb-2">
-            <span className="text-brand-400">{'★'.repeat(Math.round((recipe.rating / 10) * 5))}</span>
-            <span className="text-gray-300 dark:text-gray-600">{'★'.repeat(5 - Math.round((recipe.rating / 10) * 5))}</span>
-            <span className="text-xs text-gray-500 dark:text-gray-400 ml-1">{recipe.rating}/10</span>
+          <div className="mb-2">
+            <StarRating value={recipe.rating} size="sm" />
           </div>
         )}
 

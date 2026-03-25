@@ -8,7 +8,6 @@ import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Textarea from '@/components/ui/Textarea'
 import Label from '@/components/ui/Label'
-import StarRating from './StarRating'
 import PhotoUpload from './PhotoUpload'
 import IngredientList from './IngredientList'
 
@@ -18,7 +17,6 @@ interface RecipeFormProps {
 
 export default function RecipeForm({ initialData }: RecipeFormProps) {
   const router = useRouter()
-  const [rating, setRating] = useState<number | null>(initialData?.rating ?? null)
   const [error, setError] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
 
@@ -29,7 +27,6 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
     setError(null)
 
     const formData = new FormData(e.currentTarget)
-    if (rating !== null) formData.set('rating', String(rating))
     if (isEdit) formData.set('id', initialData.id)
 
     startTransition(async () => {
@@ -63,9 +60,18 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
       </div>
 
       <div>
-        <Label>Rating</Label>
-        <StarRating value={rating} onChange={setRating} />
-        <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">Click a star to rate 1–10</p>
+        <Label htmlFor="rating">Rating</Label>
+        <select
+          id="rating"
+          name="rating"
+          defaultValue={initialData?.rating ?? ''}
+          className="rounded-lg border border-gray-300 dark:border-dark-surface bg-white dark:bg-dark-surface px-3 py-2 text-sm text-gray-900 dark:text-gray-100 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
+        >
+          <option value="">No rating</option>
+          {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
+            <option key={n} value={n}>{n} / 10</option>
+          ))}
+        </select>
       </div>
 
       <div>

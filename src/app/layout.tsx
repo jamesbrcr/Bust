@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 
-const caviarDreams = localFont({
-  src: '../fonts/CaviarDreams_Bold.ttf',
+const welcomeDarling = localFont({
+  src: '../fonts/Welcome Darling.otf',
 })
 
 const superPopstar = localFont({
@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           } catch(e) {}
         ` }} />
       </head>
-      <body className={`${caviarDreams.className} min-h-full bg-brand-100 dark:bg-dark-base text-[30px] text-gray-900 dark:text-gray-50 antialiased`}>
+      <body className={`${welcomeDarling.className} min-h-full bg-brand-100 dark:bg-dark-base text-[30px] text-gray-900 dark:text-gray-50 antialiased`}>
         {children}
       </body>
     </html>
