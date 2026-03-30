@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🍴 Bust
 
-## Getting Started
+> **Your personal recipe book.**
 
-First, run the development server:
+Bust is a private web app for saving and organising recipes you've made. Add photos, ingredients, step-by-step directions, and a rating out of 10. Search and sort your collection to find exactly what you want to cook.
+
+---
+
+## Version
+
+**1.0.0** — Initial release
+
+---
+
+## Tech Stack
+
+| | |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript 5 |
+| Styling | Tailwind CSS 4 |
+| Backend | Supabase (Auth, Postgres, Storage) |
+| Hosting | Vercel |
+
+---
+
+## Features
+
+- 🍴 Save recipes with ingredients and directions
+- 📷 Upload a photo for each recipe
+- ⭐ Rate recipes out of 10 with a half-star display
+- 🔍 Search recipes by name in real time
+- 🔃 Sort by newest, oldest, A–Z, Z–A, highest or lowest rated
+- 🌙 Light and dark mode
+- 🔐 Auth with email + username login
+
+---
+
+## To-Do
+
+<!-- Add future changes and improvements here -->
+
+- [ ]
+
+---
+
+## Development
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev      # Start dev server at localhost:3000
+npm run build    # Production build
+npm run start    # Start production server
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Environment variables required:**
+```
+NEXT_PUBLIC_SUPABASE_URL
+NEXT_PUBLIC_SUPABASE_ANON_KEY
+```
