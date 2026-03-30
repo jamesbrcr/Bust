@@ -36,6 +36,19 @@ export default function SignupForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div>
+        <Label htmlFor="username">Username</Label>
+        <Input
+          id="username"
+          name="username"
+          type="text"
+          autoComplete="username"
+          required
+          placeholder="e.g. master_chef"
+          minLength={3}
+          maxLength={20}
+        />
+      </div>
+      <div>
         <Label htmlFor="email">Email</Label>
         <Input
           id="email"
