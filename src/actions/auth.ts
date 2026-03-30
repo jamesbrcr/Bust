@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import { headers } from 'next/headers'
 
 export async function signIn(formData: FormData) {
   const supabase = await createClient()
@@ -45,14 +46,15 @@ export async function signUp(formData: FormData) {
 
   if (existing) return { error: 'That username is already taken.' }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
+  const headersList = await headers()
+  const origin = headersList.get('origin') ?? 'http://localhost:3000'
 
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
       data: { username },
-      emailRedirectTo: `${siteUrl}/auth/callback`,
+      emailRedirectTo: `${origin}/auth/callback`,
     },
   })
   if (error || !data.user) return { error: error?.message ?? 'Sign up failed.' }
