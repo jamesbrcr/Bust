@@ -13,6 +13,13 @@ function parseIngredients(formData: FormData) {
     .filter((ing) => ing.name.length > 0)
 }
 
+function parseDirections(formData: FormData) {
+  const instructions = formData.getAll('direction_instruction') as string[]
+  return instructions
+    .map((instruction) => instruction.trim())
+    .filter((instruction) => instruction.length > 0)
+}
+
 export async function createRecipe(formData: FormData) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -57,6 +64,18 @@ export async function createRecipe(formData: FormData) {
         name: ing.name,
         measurement: ing.measurement || null,
         sort_order: i,
+      }))
+    )
+  }
+
+  // Insert directions
+  const directions = parseDirections(formData)
+  if (directions.length > 0) {
+    await supabase.from('directions').insert(
+      directions.map((instruction, i) => ({
+        recipe_id: recipe.id,
+        step_number: i + 1,
+        instruction,
       }))
     )
   }
@@ -124,6 +143,20 @@ export async function updateRecipe(formData: FormData) {
         name: ing.name,
         measurement: ing.measurement || null,
         sort_order: i,
+      }))
+    )
+  }
+
+  // Delete-and-reinsert directions
+  await supabase.from('directions').delete().eq('recipe_id', id)
+
+  const directions = parseDirections(formData)
+  if (directions.length > 0) {
+    await supabase.from('directions').insert(
+      directions.map((instruction, i) => ({
+        recipe_id: id,
+        step_number: i + 1,
+        instruction,
       }))
     )
   }

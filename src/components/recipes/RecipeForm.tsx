@@ -10,6 +10,7 @@ import Textarea from '@/components/ui/Textarea'
 import Label from '@/components/ui/Label'
 import PhotoUpload from './PhotoUpload'
 import IngredientList from './IngredientList'
+import DirectionList from './DirectionList'
 
 interface RecipeFormProps {
   initialData?: RecipeWithIngredients
@@ -19,6 +20,7 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
   const router = useRouter()
   const [error, setError] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
+  const [rating, setRating] = useState<number | null>(initialData?.rating ?? null)
 
   const isEdit = !!initialData
 
@@ -41,6 +43,10 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
     measurement: ing.measurement ?? '',
   }))
 
+  const initialDirections = initialData?.directions
+    .sort((a, b) => a.step_number - b.step_number)
+    .map((dir) => ({ instruction: dir.instruction }))
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-2xl">
       <div>
@@ -60,23 +66,34 @@ export default function RecipeForm({ initialData }: RecipeFormProps) {
       </div>
 
       <div>
-        <Label htmlFor="rating">Rating</Label>
-        <select
-          id="rating"
-          name="rating"
-          defaultValue={initialData?.rating ?? ''}
-          className="rounded-lg border border-gray-300 dark:border-dark-surface bg-white dark:bg-dark-surface px-3 py-2 text-sm text-gray-900 dark:text-gray-100 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
-        >
-          <option value="">No rating</option>
+        <Label>Rating</Label>
+        <input type="hidden" name="rating" value={rating ?? ''} />
+        <div className="flex gap-2 flex-wrap">
           {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
-            <option key={n} value={n}>{n} / 10</option>
+            <button
+              key={n}
+              type="button"
+              onClick={() => setRating(rating === n ? null : n)}
+              className={`w-10 h-10 rounded-full text-sm font-semibold transition-colors ${
+                rating === n
+                  ? 'bg-brand-500 text-white'
+                  : 'bg-white dark:bg-dark-surface border border-gray-300 dark:border-dark-surface text-gray-700 dark:text-gray-200 hover:border-brand-500 hover:text-brand-500'
+              }`}
+            >
+              {n}
+            </button>
           ))}
-        </select>
+        </div>
       </div>
 
       <div>
         <Label>Ingredients</Label>
         <IngredientList initialIngredients={initialIngredients} />
+      </div>
+
+      <div>
+        <Label>Directions</Label>
+        <DirectionList initialDirections={initialDirections} />
       </div>
 
       <div>

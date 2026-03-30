@@ -27,16 +27,16 @@ export default function RecipeDashboard({
       <div className="flex items-center justify-between mb-6 gap-4">
         <div className="shrink-0">
           <h1 className="text-5xl font-bold text-gray-900 dark:text-gray-100">My Recipes</h1>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
-            {total} {total !== 1 ? 's' : ''} saved
+          <p className="text-[18px] text-gray-500 dark:text-gray-400 mt-0.5">
+            {total} saved
           </p>
         </div>
 
         <div className="flex items-center gap-2 flex-1 justify-end">
           {total > 0 && (
             <>
-              <div className="relative flex-1 -translate-y-1">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none flex items-center text-brand-500" style={{ marginTop: '4px' }}>
+              <div className="relative flex-1" style={{ transform: 'translateY(-2px)' }}>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none flex items-center text-brand-500" style={{ marginTop: '3px' }}>
                   <svg viewBox="0 0 24 24" width={28} height={28} fill="currentColor">
                     <path fillRule="evenodd" clipRule="evenodd" d="M10 0.5C4.75329 0.5 0.5 4.75329 0.5 10C0.5 15.2467 4.75329 19.5 10 19.5C12.082 19.5 14.0076 18.8302 15.5731 17.6944L20.2929 22.4142C20.6834 22.8047 21.3166 22.8047 21.7071 22.4142L22.4142 21.7071C22.8047 21.3166 22.8047 20.6834 22.4142 20.2929L17.6944 15.5731C18.8302 14.0076 19.5 12.082 19.5 10C19.5 4.75329 15.2467 0.5 10 0.5ZM3.5 10C3.5 6.41015 6.41015 3.5 10 3.5C13.5899 3.5 16.5 6.41015 16.5 10C16.5 13.5899 13.5899 16.5 10 16.5C6.41015 16.5 3.5 13.5899 3.5 10Z" />
                   </svg>
@@ -46,7 +46,7 @@ export default function RecipeDashboard({
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search recipes..."
-                  className="w-full rounded-2xl border border-gray-300 dark:border-dark-surface bg-white dark:bg-dark-surface pl-12 pr-10 py-2.5 text-sm text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
+                  className="w-full rounded-2xl border border-gray-300 dark:border-dark-surface bg-white dark:bg-dark-surface pl-12 pr-10 py-2.5 text-base text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
                 />
                 {query && (
                   <button

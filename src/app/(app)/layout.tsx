@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { signOut } from '@/actions/auth'
-import Button from '@/components/ui/Button'
 import ThemeToggle from '@/components/ui/ThemeToggle'
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
@@ -13,11 +12,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </Link>
           <div className="flex items-center gap-2 ml-auto">
             <ThemeToggle />
-            <Link href="/about" className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors px-2 py-1">
+            <Link href="/about" className="text-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors px-2 py-1">
               About
             </Link>
-            <form action={signOut}>
-              <Button type="submit" variant="ghost" size="sm">Sign out</Button>
+            <form action={signOut} className="flex items-center">
+              <button type="submit" className="text-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors px-2 py-3">Sign out</button>
             </form>
           </div>
         </div>

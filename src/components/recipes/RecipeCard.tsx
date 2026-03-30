@@ -31,7 +31,7 @@ export default function RecipeCard({ recipe }: RecipeCardProps) {
       <div className="p-4 flex flex-col flex-1">
         <div className="flex items-start justify-between gap-2 mb-2">
           <Link href={`/recipes/${recipe.id}`}>
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 hover:text-brand-500 dark:hover:text-brand-400 transition-colors line-clamp-2 leading-snug">
+            <h3 className="font-semibold text-[18px] text-gray-900 dark:text-gray-100 hover:text-brand-500 dark:hover:text-brand-400 transition-colors line-clamp-2 leading-snug">
               {recipe.name}
             </h3>
           </Link>

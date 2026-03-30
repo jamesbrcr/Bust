@@ -18,11 +18,23 @@ export interface Recipe {
   updated_at: string
 }
 
+export interface Direction {
+  id: string
+  recipe_id: string
+  step_number: number
+  instruction: string
+}
+
 export interface RecipeWithIngredients extends Recipe {
   ingredients: Ingredient[]
+  directions: Direction[]
 }
 
 export interface IngredientInput {
   name: string
   measurement: string
+}
+
+export interface DirectionInput {
+  instruction: string
 }

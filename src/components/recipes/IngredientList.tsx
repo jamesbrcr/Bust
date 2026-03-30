@@ -61,7 +61,7 @@ export default function IngredientList({ initialIngredients }: IngredientListPro
           </button>
         </div>
       ))}
-      <Button type="button" variant="secondary" size="sm" onClick={add}>
+      <Button type="button" variant="secondary" size="sm" onClick={add} className="rounded-xl">
         + Add ingredient
       </Button>
     </div>

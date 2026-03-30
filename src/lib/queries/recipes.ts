@@ -7,7 +7,7 @@ export async function getRecipesByUser(userId: string): Promise<RecipeWithIngred
 
   const { data, error } = await supabase
     .from('recipes')
-    .select('*, ingredients(*)')
+    .select('*, ingredients(*), directions(*)')
     .eq('user_id', userId)
     .order('created_at', { ascending: false })
 
@@ -32,7 +32,7 @@ export async function getRecipeById(id: string): Promise<RecipeWithIngredients |
 
   const { data, error } = await supabase
     .from('recipes')
-    .select('*, ingredients(*)')
+    .select('*, ingredients(*), directions(*)')
     .eq('id', id)
     .single()
 

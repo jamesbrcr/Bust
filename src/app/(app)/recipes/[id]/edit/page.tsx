@@ -9,9 +9,9 @@ export default async function EditRecipePage({ params }: { params: Promise<{ id:
   if (!recipe) notFound()
 
   return (
-    <div>
+    <div className="max-w-2xl mx-auto">
       <div className="mb-6">
-        <Link href={`/recipes/${id}`} className="text-sm text-gray-500 dark:text-gray-400 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">
+        <Link href={`/recipes/${id}`} className="text-base text-gray-500 dark:text-gray-400 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">
           ← Back to recipe
         </Link>
         <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-2">Edit recipe</h1>
