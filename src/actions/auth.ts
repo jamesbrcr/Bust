@@ -45,10 +45,17 @@ export async function signUp(formData: FormData) {
 
   if (existing) return { error: 'That username is already taken.' }
 
-  const { data, error } = await supabase.auth.signUp({ email, password })
-  if (error || !data.user) return { error: error?.message ?? 'Sign up failed.' }
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
 
-  await supabase.from('profiles').insert({ id: data.user.id, username })
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { username },
+      emailRedirectTo: `${siteUrl}/auth/callback`,
+    },
+  })
+  if (error || !data.user) return { error: error?.message ?? 'Sign up failed.' }
 
   redirect('/confirm-email')
 }
