@@ -4,19 +4,21 @@ import './globals.css'
 
 const madeTommy = localFont({
   src: [
-    { path: '../fonts/made_tommy/MADE TOMMY Thin_PERSONAL USE.otf',       weight: '100' },
-    { path: '../fonts/made_tommy/MADE TOMMY Light_PERSONAL USE.otf',      weight: '300' },
-    { path: '../fonts/made_tommy/MADE TOMMY Regular_PERSONAL USE.otf',    weight: '400' },
-    { path: '../fonts/made_tommy/MADE TOMMY Medium_PERSONAL USE.otf',     weight: '500' },
-    { path: '../fonts/made_tommy/MADE TOMMY Bold_PERSONAL USE.otf',       weight: '700' },
-    { path: '../fonts/made_tommy/MADE TOMMY ExtraBold_PERSONAL USE.otf',  weight: '800' },
-    { path: '../fonts/made_tommy/MADE TOMMY Black_PERSONAL USE.otf',      weight: '900' },
+    { path: '../fonts/made_tommy/MadeTommy-Thin.otf',      weight: '100' },
+    { path: '../fonts/made_tommy/MadeTommy-Light.otf',     weight: '300' },
+    { path: '../fonts/made_tommy/MadeTommy-Regular.otf',   weight: '400' },
+    { path: '../fonts/made_tommy/MadeTommy-Medium.otf',    weight: '500' },
+    { path: '../fonts/made_tommy/MadeTommy-Bold.otf',      weight: '700' },
+    { path: '../fonts/made_tommy/MadeTommy-ExtraBold.otf', weight: '800' },
+    { path: '../fonts/made_tommy/MadeTommy-Black.otf',     weight: '900' },
   ],
+  adjustFontFallback: false,
 })
 
 const superPopstar = localFont({
-  src: '../fonts/Super Popstar.ttf',
+  src: '../fonts/SuperPopstar.ttf',
   variable: '--font-brand',
+  adjustFontFallback: false,
 })
 
 export const metadata: Metadata = {
