@@ -12,6 +12,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           </Link>
           <div className="flex items-center gap-2 ml-auto">
             <ThemeToggle />
+            <Link href="/saved" className="text-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors px-2 py-1">
+              Saved
+            </Link>
             <Link href="/about" className="text-base text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors px-2 py-1">
               About
             </Link>

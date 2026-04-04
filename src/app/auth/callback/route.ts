@@ -9,7 +9,9 @@ export async function GET(request: Request) {
     const supabase = await createClient()
     const { error } = await supabase.auth.exchangeCodeForSession(code)
     if (!error) {
-      return NextResponse.redirect(`${origin}/dashboard`)
+      const redirectTo = searchParams.get('redirectTo')
+      const destination = redirectTo ? redirectTo : `${origin}/dashboard`
+      return NextResponse.redirect(destination.startsWith('/') ? `${origin}${destination}` : destination)
     }
   }
 

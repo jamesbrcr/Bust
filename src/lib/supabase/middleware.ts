@@ -29,12 +29,16 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  const isPublicPage =
+  const isAuthPage =
     request.nextUrl.pathname.startsWith('/login') ||
     request.nextUrl.pathname.startsWith('/signup') ||
     request.nextUrl.pathname.startsWith('/confirm-email') ||
     request.nextUrl.pathname.startsWith('/auth/callback') ||
     request.nextUrl.pathname === '/'
+
+  const isPublicPage =
+    isAuthPage ||
+    request.nextUrl.pathname.startsWith('/shared/')
 
   if (!user && !isPublicPage) {
     const url = request.nextUrl.clone()
@@ -42,7 +46,7 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
-  if (user && isPublicPage) {
+  if (user && isAuthPage) {
     const url = request.nextUrl.clone()
     url.pathname = '/dashboard'
     return NextResponse.redirect(url)

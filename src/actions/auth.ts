@@ -1,6 +1,7 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
+import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 export async function signIn(formData: FormData) {
@@ -8,6 +9,7 @@ export async function signIn(formData: FormData) {
 
   const identifier = (formData.get('email') as string).trim()
   const password = formData.get('password') as string
+  const redirectTo = formData.get('redirectTo') as string | null
 
   let email = identifier
 
@@ -21,7 +23,7 @@ export async function signIn(formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword({ email, password })
   if (error) return { error: error.message }
 
-  redirect('/dashboard')
+  redirect(redirectTo || '/dashboard')
 }
 
 export async function signUp(formData: FormData) {
@@ -30,6 +32,7 @@ export async function signUp(formData: FormData) {
   const email = (formData.get('email') as string).trim()
   const password = formData.get('password') as string
   const username = (formData.get('username') as string).trim().toLowerCase()
+  const redirectTo = formData.get('redirectTo') as string | null
 
   if (!username) return { error: 'Username is required.' }
   if (!/^[a-z0-9_]{3,20}$/.test(username)) {
@@ -45,7 +48,21 @@ export async function signUp(formData: FormData) {
 
   if (existing) return { error: 'That username is already taken.' }
 
-  const { data, error } = await supabase.auth.signUp({ email, password })
+  const headersList = await headers()
+  const origin = headersList.get('origin') ?? headersList.get('x-forwarded-proto')?.concat('://', headersList.get('x-forwarded-host') ?? '') ?? 'http://localhost:3000'
+
+  const callbackUrl = redirectTo
+    ? `${origin}/auth/callback?redirectTo=${encodeURIComponent(redirectTo)}`
+    : `${origin}/auth/callback`
+
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { username },
+      emailRedirectTo: callbackUrl,
+    },
+  })
   if (error || !data.user) return { error: error?.message ?? 'Sign up failed.' }
 
   await supabase.from('profiles').insert({ id: data.user.id, username })
