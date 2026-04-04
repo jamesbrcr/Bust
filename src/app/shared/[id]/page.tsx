@@ -4,9 +4,12 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { getPublicRecipeById } from '@/lib/queries/recipes'
 import { getIsBookmarked } from '@/lib/queries/bookmarks'
+import { getProvenance } from '@/lib/queries/provenance'
 import { addBookmark } from '@/actions/bookmarks'
 import StarRating from '@/components/recipes/StarRating'
 import BookmarkButton from '@/components/recipes/BookmarkButton'
+import ForkButton from '@/components/recipes/ForkButton'
+import ProvenanceFooter from '@/components/recipes/ProvenanceFooter'
 
 export default async function SharedRecipePage({
   params,
@@ -41,6 +44,20 @@ export default async function SharedRecipePage({
   }
 
   const bookmarked = await getIsBookmarked(id)
+
+  // Check if the user already has a fork of this recipe
+  let existingForkId: string | null = null
+  if (user) {
+    const { data: fork } = await supabase
+      .from('recipes')
+      .select('id')
+      .eq('user_id', user.id)
+      .eq('parent_recipe_id', id)
+      .maybeSingle()
+    existingForkId = fork?.id ?? null
+  }
+
+  const provenance = await getProvenance(id)
   const sharedUrl = `/shared/${id}`
 
   return (
@@ -64,7 +81,7 @@ export default async function SharedRecipePage({
       <main className="flex-1 max-w-2xl mx-auto w-full px-6 py-10">
 
         {/* Owner + title + bookmark */}
-        <div className="flex items-start justify-between gap-4 mb-6">
+        <div className="flex items-start justify-between gap-4 mb-2">
           <div>
             {recipe.ownerUsername && (
               <p className="text-lg font-semibold text-brand-500 mb-1">{recipe.ownerUsername}&apos;s</p>
@@ -78,6 +95,16 @@ export default async function SharedRecipePage({
             sharedUrl={sharedUrl}
           />
         </div>
+
+        {/* Fork button — only visible when logged in and bookmarked */}
+        {user && bookmarked && (
+          <div className="mb-6">
+            <ForkButton recipeId={id} existingForkId={existingForkId} />
+          </div>
+        )}
+
+        {!user && <div className="mb-6" />}
+        {user && !bookmarked && <div className="mb-6" />}
 
         {/* Photo */}
         {recipe.photo_url && (
@@ -147,9 +174,12 @@ export default async function SharedRecipePage({
           </section>
         )}
 
+        {/* Provenance */}
+        <ProvenanceFooter nodes={provenance} currentRecipeId={id} />
+
         {/* CTA — only shown to unauthenticated users */}
         {!user && (
-          <div className="border-t border-gray-200 pt-10 text-center">
+          <div className="border-t border-gray-200 pt-10 mt-8 text-center">
             <p className="text-xl font-bold text-gray-900 mb-2">Want to save your own recipes?</p>
             <p className="text-sm text-gray-500 mb-6">Join Bust for free and start building your personal recipe collection.</p>
             <Link href="/signup" className="bg-brand-500 hover:bg-brand-600 text-white font-medium px-8 py-3 rounded-full transition-colors inline-block">

@@ -2,8 +2,16 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 
-const welcomeDarling = localFont({
-  src: '../fonts/Welcome Darling.otf',
+const madeTommy = localFont({
+  src: [
+    { path: '../fonts/made_tommy/MADE TOMMY Thin_PERSONAL USE.otf',       weight: '100' },
+    { path: '../fonts/made_tommy/MADE TOMMY Light_PERSONAL USE.otf',      weight: '300' },
+    { path: '../fonts/made_tommy/MADE TOMMY Regular_PERSONAL USE.otf',    weight: '400' },
+    { path: '../fonts/made_tommy/MADE TOMMY Medium_PERSONAL USE.otf',     weight: '500' },
+    { path: '../fonts/made_tommy/MADE TOMMY Bold_PERSONAL USE.otf',       weight: '700' },
+    { path: '../fonts/made_tommy/MADE TOMMY ExtraBold_PERSONAL USE.otf',  weight: '800' },
+    { path: '../fonts/made_tommy/MADE TOMMY Black_PERSONAL USE.otf',      weight: '900' },
+  ],
 })
 
 const superPopstar = localFont({
@@ -30,7 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           } catch(e) {}
         ` }} />
       </head>
-      <body className={`${welcomeDarling.className} min-h-full bg-brand-100 dark:bg-dark-base text-[30px] text-gray-900 dark:text-gray-50 antialiased`}>
+      <body className={`${madeTommy.className} min-h-full bg-brand-100 dark:bg-dark-base text-[30px] text-gray-900 dark:text-gray-50 antialiased`}>
         {children}
       </body>
     </html>

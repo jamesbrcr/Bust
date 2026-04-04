@@ -8,7 +8,7 @@ import ShareButton from './ShareButton'
 
 export default function RecipeDetail({ recipe }: { recipe: RecipeWithIngredients }) {
   return (
-    <div className="max-w-2xl mx-auto">
+    <div>
       <div className="flex items-center justify-between mb-6">
         <Link href="/dashboard" className="text-base text-gray-500 dark:text-gray-400 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">
           ← Back to dashboard

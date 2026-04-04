@@ -115,3 +115,9 @@ alter table public.bookmarks enable row level security;
 create policy "Users can view own bookmarks" on public.bookmarks for select using (auth.uid() = user_id);
 create policy "Users can insert own bookmarks" on public.bookmarks for insert with check (auth.uid() = user_id);
 create policy "Users can delete own bookmarks" on public.bookmarks for delete using (auth.uid() = user_id);
+
+-- ============================================================
+-- Recipe provenance (forking)
+-- ============================================================
+alter table public.recipes
+  add column parent_recipe_id uuid references public.recipes(id) on delete set null;
