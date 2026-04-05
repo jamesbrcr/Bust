@@ -66,20 +66,18 @@ function computeDiff(parent: RecipeSnapshot, child: RecipeSnapshot): DiffResult 
     }
   }
 
-  // Directions — compare by position
-  const pDirs = [...parent.directions].sort((a, b) => a.step_number - b.step_number)
-  const cDirs = [...child.directions].sort((a, b) => a.step_number - b.step_number)
-  const maxLen = Math.max(pDirs.length, cDirs.length)
+  // Directions — compare by content so moved steps don't appear as edits
+  const parentInstructions = new Set(parent.directions.map(d => d.instruction))
+  const childInstructions = new Set(child.directions.map(d => d.instruction))
 
-  for (let i = 0; i < maxLen; i++) {
-    const p = pDirs[i]
-    const c = cDirs[i]
-    if (!p && c) {
-      added.push(`Added step ${c.step_number}: "${truncate(c.instruction)}"`)
-    } else if (p && !c) {
-      removed.push(`Removed step ${p.step_number}: "${truncate(p.instruction)}"`)
-    } else if (p && c && p.instruction !== c.instruction) {
-      changed.push(`Step ${c.step_number}: "${truncate(p.instruction)}" → "${truncate(c.instruction)}"`)
+  for (const dir of [...child.directions].sort((a, b) => a.step_number - b.step_number)) {
+    if (!parentInstructions.has(dir.instruction)) {
+      added.push(`Added step ${dir.step_number}: "${truncate(dir.instruction)}"`)
+    }
+  }
+  for (const dir of [...parent.directions].sort((a, b) => a.step_number - b.step_number)) {
+    if (!childInstructions.has(dir.instruction)) {
+      removed.push(`Removed step ${dir.step_number}: "${truncate(dir.instruction)}"`)
     }
   }
 

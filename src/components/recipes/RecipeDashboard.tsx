@@ -28,7 +28,7 @@ export default function RecipeDashboard({
         <div className="shrink-0">
           <h1 className="text-5xl font-bold text-gray-900 dark:text-gray-100">My Recipes</h1>
           <p className="text-[18px] text-gray-500 dark:text-gray-400 mt-0.5">
-            {total} saved
+            {total} recipes
           </p>
         </div>
 
