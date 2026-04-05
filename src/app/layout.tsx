@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import localFont from 'next/font/local'
 import './globals.css'
 
+
 const madeTommy = localFont({
   src: [
     { path: '../fonts/made_tommy/MadeTommy-Thin.otf',      weight: '100' },
@@ -15,11 +16,7 @@ const madeTommy = localFont({
   adjustFontFallback: false,
 })
 
-const superPopstar = localFont({
-  src: '../fonts/SuperPopstar.ttf',
-  variable: '--font-brand',
-  adjustFontFallback: false,
-})
+
 
 export const metadata: Metadata = {
   title: 'Bust — My Recipe Book',
@@ -28,7 +25,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`h-full ${superPopstar.variable}`} suppressHydrationWarning>
+    <html lang="en" className="h-full" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: `
           try {
