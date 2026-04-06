@@ -95,13 +95,13 @@ export async function getProvenance(recipeId: string): Promise<ProvenanceNode[]>
     if (chainIds.includes(currentId)) break // cycle guard
     chainIds.unshift(currentId)
 
-    const { data: row } = await supabase
+    const result: { data: { parent_recipe_id: string | null } | null } = await supabase
       .from('recipes')
       .select('parent_recipe_id')
       .eq('id', currentId)
       .single()
 
-    currentId = (row as { parent_recipe_id: string | null } | null)?.parent_recipe_id ?? null
+    currentId = result.data?.parent_recipe_id ?? null
   }
 
   if (chainIds.length === 0) return []
