@@ -8,7 +8,7 @@ Bust is a private web app for saving and organising recipes you've made. Add pho
 
 ## Version
 
-**1.0.0** — Initial release
+**1.1.0** — Recipes can now be shared, saved, and edited with history being viewed.
 
 ---
 
