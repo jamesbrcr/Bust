@@ -121,3 +121,41 @@ create policy "Users can delete own bookmarks" on public.bookmarks for delete us
 -- ============================================================
 alter table public.recipes
   add column parent_recipe_id uuid references public.recipes(id) on delete set null;
+
+-- ============================================================
+-- Directions
+-- ============================================================
+create table public.directions (
+  id uuid primary key default gen_random_uuid(),
+  recipe_id uuid not null references public.recipes(id) on delete cascade,
+  step_number smallint not null,
+  instruction text not null
+);
+
+alter table public.directions enable row level security;
+create policy "Users can view own directions" on public.directions for select
+  using (auth.uid() = (select user_id from public.recipes where id = recipe_id));
+create policy "Users can insert own directions" on public.directions for insert
+  with check (auth.uid() = (select user_id from public.recipes where id = recipe_id));
+create policy "Users can update own directions" on public.directions for update
+  using (auth.uid() = (select user_id from public.recipes where id = recipe_id));
+create policy "Users can delete own directions" on public.directions for delete
+  using (auth.uid() = (select user_id from public.recipes where id = recipe_id));
+
+-- ============================================================
+-- Public read policies (shared recipe pages)
+-- ============================================================
+
+-- Anyone can read any recipe (needed for /shared/[id] page)
+create policy "Anyone can view recipes" on public.recipes for select using (true);
+
+-- Anyone can read ingredients of any recipe
+create policy "Anyone can view ingredients" on public.ingredients for select using (true);
+
+-- Anyone can read directions of any recipe
+create policy "Anyone can view directions" on public.directions for select using (true);
+
+-- Any authenticated user can generate signed URLs for recipe photos
+drop policy if exists "Users can view own photos" on storage.objects;
+create policy "Authenticated users can view recipe photos" on storage.objects for select
+  using (bucket_id = 'recipe-photos' and auth.role() = 'authenticated');

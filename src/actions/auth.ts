@@ -23,7 +23,8 @@ export async function signIn(formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword({ email, password })
   if (error) return { error: error.message }
 
-  redirect(redirectTo || '/dashboard')
+  const safePath = redirectTo?.startsWith('/') ? redirectTo : '/dashboard'
+  redirect(safePath)
 }
 
 export async function signUp(formData: FormData) {
