@@ -7,7 +7,7 @@ import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Label from '@/components/ui/Label'
 
-export default function LoginForm() {
+export default function LoginForm({ redirectTo }: { redirectTo?: string }) {
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 
@@ -27,6 +27,7 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {redirectTo && <input type="hidden" name="redirectTo" value={redirectTo} />}
       <div>
         <Label htmlFor="email">Email or username</Label>
         <Input

@@ -166,6 +166,72 @@ export async function updateRecipe(formData: FormData) {
   redirect(`/recipes/${id}`)
 }
 
+export async function forkRecipe(sourceId: string): Promise<{ newId?: string; error?: string }> {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: 'Not authenticated' }
+
+  // Prevent duplicate forks of the same source recipe
+  const { data: existing } = await supabase
+    .from('recipes')
+    .select('id')
+    .eq('user_id', user.id)
+    .eq('parent_recipe_id', sourceId)
+    .maybeSingle()
+
+  if (existing) return { newId: existing.id }
+
+  // Fetch source recipe with ingredients and directions
+  const { data: source } = await supabase
+    .from('recipes')
+    .select('*, ingredients(*), directions(*)')
+    .eq('id', sourceId)
+    .single()
+
+  if (!source) return { error: 'Source recipe not found.' }
+
+  // Create the forked recipe (no photo — it lives in the original user's storage)
+  const { data: newRecipe, error: insertError } = await supabase
+    .from('recipes')
+    .insert({
+      user_id: user.id,
+      name: source.name,
+      rating: source.rating,
+      notes: source.notes,
+      parent_recipe_id: sourceId,
+    })
+    .select()
+    .single()
+
+  if (insertError || !newRecipe) return { error: insertError?.message ?? 'Failed to fork recipe.' }
+
+  // Copy ingredients
+  if (source.ingredients?.length > 0) {
+    await supabase.from('ingredients').insert(
+      source.ingredients.map((ing: { name: string; measurement: string | null; sort_order: number }) => ({
+        recipe_id: newRecipe.id,
+        name: ing.name,
+        measurement: ing.measurement,
+        sort_order: ing.sort_order,
+      }))
+    )
+  }
+
+  // Copy directions
+  if (source.directions?.length > 0) {
+    await supabase.from('directions').insert(
+      source.directions.map((dir: { step_number: number; instruction: string }) => ({
+        recipe_id: newRecipe.id,
+        step_number: dir.step_number,
+        instruction: dir.instruction,
+      }))
+    )
+  }
+
+  revalidatePath('/dashboard')
+  return { newId: newRecipe.id }
+}
+
 export async function deleteRecipe(id: string) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()

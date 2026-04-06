@@ -9,6 +9,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             Bust
           </Link>
           <div className="flex items-center gap-2 ml-auto">
+            <Link href="/saved" className="text-base text-gray-600 hover:text-gray-900 transition-colors px-2 py-1">
+              Saved
+            </Link>
             <Link href="/about" className="text-base text-gray-600 hover:text-gray-900 transition-colors px-2 py-1">
               About
             </Link>

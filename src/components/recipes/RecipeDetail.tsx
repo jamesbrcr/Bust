@@ -4,15 +4,17 @@ import { RecipeWithIngredients } from '@/types'
 import { formatDate } from '@/lib/utils'
 import StarRating from './StarRating'
 import DeleteRecipeButton from './DeleteRecipeButton'
+import ShareButton from './ShareButton'
 
 export default function RecipeDetail({ recipe }: { recipe: RecipeWithIngredients }) {
   return (
-    <div className="max-w-2xl mx-auto">
+    <div>
       <div className="flex items-center justify-between mb-6">
         <Link href="/dashboard" className="text-base text-gray-500 dark:text-gray-400 hover:text-brand-500 dark:hover:text-brand-400 transition-colors">
           ← Back to dashboard
         </Link>
         <div className="flex items-center gap-2">
+          <ShareButton recipeId={recipe.id} />
           <Link href={`/recipes/${recipe.id}/edit`} aria-label="Edit recipe" className="p-1 text-gray-400 hover:text-brand-500 transition-colors">
             <svg viewBox="0 0 24 24" width={22} height={22} fill="currentColor">
               <path d="M17.0671 2.27157C17.5 2.09228 17.9639 2 18.4324 2C18.9009 2 19.3648 2.09228 19.7977 2.27157C20.2305 2.45086 20.6238 2.71365 20.9551 3.04493C21.2864 3.37621 21.5492 3.7695 21.7285 4.20235C21.9077 4.63519 22 5.09911 22 5.56761C22 6.03611 21.9077 6.50003 21.7285 6.93288C21.5492 7.36572 21.2864 7.75901 20.9551 8.09029L20.4369 8.60845L15.3916 3.56308L15.9097 3.04493C16.241 2.71365 16.6343 2.45086 17.0671 2.27157Z" />

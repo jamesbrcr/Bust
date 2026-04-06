@@ -16,6 +16,7 @@ export interface Recipe {
   notes: string | null
   created_at: string
   updated_at: string
+  parent_recipe_id: string | null
 }
 
 export interface Direction {
